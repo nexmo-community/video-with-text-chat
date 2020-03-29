@@ -1,0 +1,152 @@
+html {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  text-align: center;
+  padding: 0.5em;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+
+input,
+button {
+  font-size: inherit;
+  padding: 0.5em;
+}
+
+.registration {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.registration input {
+  margin-bottom: 1em;
+}
+
+.subscriber {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.publisher {
+  position: absolute;
+  width: 25vmin;
+  height: 25vmin;
+  min-width: 8em;
+  min-height: 8em;
+  align-self: flex-end;
+  border: 2px solid white;
+}
+
+.btn-chat {
+  height: 3.5em;
+  width: 3.5em;
+  background-color: black;
+  border-radius: 50%;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2), 0 3px 6px 0 rgba(0, 0, 0, 0.19);
+  position: fixed;
+  right: 1em;
+  bottom: 1em;
+}
+
+.btn-chat svg {
+  height: 1.5em;
+  width: 1.5em;
+}
+
+footer {
+  text-align: center;
+  padding: 0.5em;
+}
+
+aside {
+  position: fixed;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
+  display: flex;
+  flex-direction: column;
+  min-width: 20em;
+  width: 25%;
+  height: 100%;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.24);
+  transition: transform 0.5s ease;
+}
+
+aside.active {
+  transform: translateX(0);
+}
+
+.chat-header {
+  background-color: white;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.24);
+  display: flex;
+  align-items: center;
+}
+
+.btn-close {
+  margin-left: auto;
+  height: 2em;
+  width: 2em;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-close svg {
+  height: 1em;
+  width: 1em;
+}
+
+.messages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  padding: 0.5em;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.24);
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.messages p {
+  margin-bottom: 0.5em;
+  display: flex;
+}
+
+.chat-form {
+  padding: 0.5em;
+  background-color: white;
+  display: flex;
+  align-items: center;
+}
+
+.chat-form input[type="text"] {
+  flex: 1;
+}
+
+.chat-form input[type="submit"] {
+  margin-left: 0.5em;
+  align-self: stretch;
+}

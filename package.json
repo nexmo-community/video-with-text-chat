@@ -1,0 +1,29 @@
+{
+  "name": "video-with-text-chat",
+  "version": "0.0.1",
+  "description": "Adding text chat to a basic audio-video chat with OpenTok APIs in Node.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "opentok": "^2.9.2",
+    "pouchdb-node": "^7.2.1"
+  },
+  "engines": {
+    "node": "12.x"
+  },
+  "repository": {
+    "url": "https://glitch.com/edit/#!/video-with-text-chat"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "express"
+  ],
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  }
+}

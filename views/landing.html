@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Video with Text Chat</title>
+    <meta name="description" content="Adding text chat to a basic audio-video chat with OpenTok APIs in Node.js" />
+    <link
+      id="favicon"
+      rel="icon"
+      href="https://tokbox.com/developer/favicon.ico"
+      type="image/x-icon"
+    />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>Basic video chat with texting</h1>
+    </header>
+
+    <main>
+      <form class="registration" id="registration">
+        <label for="room-name">Room</label>
+        <input
+          id="room-name"
+          name="room-name"
+          placeholder="Enter room name"
+          required
+        />
+        <label for="user-name">User name</label>
+        <input
+          id="user-name"
+          name="user-name"
+          placeholder="Enter your name"
+          required
+        />
+        <button>Enter</button>
+      </form>
+    </main>
+
+    <footer>
+      <p>
+        <small
+          >Built on <a href="https://glitch.com">Glitch</a> with TokBox's
+          <a href="https://tokbox.com/developer/">OpenTok platform</a>.</small
+        >
+      </p>
+    </footer>
+
+    <script>
+      const form = document.getElementById("registration");
+      form.addEventListener("submit", event => {
+        event.preventDefault();
+        location.href = `/session/${form.elements["room-name"].value}?username=${form.elements["user-name"].value}`;
+      });
+    </script>
+  </body>
+</html>
