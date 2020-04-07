@@ -133,6 +133,7 @@ aside.active {
 .messages p {
   margin-bottom: 0.5em;
   display: flex;
+  word-break: break-word;
 }
 
 .chat-form {

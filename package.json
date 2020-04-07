@@ -1,7 +1,7 @@
 {
   "name": "video-with-text-chat",
   "version": "0.0.1",
-  "description": "Adding text chat to a basic audio-video chat with OpenTok APIs in Node.js",
+  "description": "Adding text chat to a basic audio-video chat with Vonage Video API in Node.js",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

@@ -4,7 +4,7 @@
     <title>Video with Text Chat</title>
     <meta
       name="description"
-      content="Adding text chat to a basic audio-video chat with OpenTok APIs in Node.js"
+      content="Adding text chat to a basic audio-video chat with Vonage Video API in Node.js"
     />
     <link
       id="favicon"
@@ -28,7 +28,7 @@
       <div id="subscriber" class="subscriber"></div>
       <div id="publisher" class="publisher"></div>
 
-      <button class="btn-chat" id="showChat">
+      <button class="btn-chat" id="showChat" aria-label="Show chat">
         <svg viewBox="0 0 512 512">
           <path
             fill="white"
@@ -45,7 +45,7 @@
     <aside id="chatWindow">
       <header class="chat-header">
         <h1><span id="roomName"></span>Chat</h1>
-        <button class="btn-close" id="closeChat">
+        <button class="btn-close" id="closeChat" aria-label="Close chat">
           <svg viewBox="0 0 47.971 47.971">
             <path
               d="M28.228 23.986L47.092 5.122a2.998 2.998 0 000-4.242 2.998 2.998 0 00-4.242 0L23.986 19.744 5.121.88a2.998 2.998 0 00-4.242 0 2.998 2.998 0 000 4.242l18.865 18.864L.879 42.85a2.998 2.998 0 104.242 4.241l18.865-18.864L42.85 47.091c.586.586 1.354.879 2.121.879s1.535-.293 2.121-.879a2.998 2.998 0 000-4.242L28.228 23.986z"
@@ -65,11 +65,12 @@
     <footer>
       <p>
         <small
-          >Built on <a href="https://glitch.com">Glitch</a> with TokBox's
-          <a href="https://tokbox.com/developer/">OpenTok platform</a>.</small
+          >Built on <a href="https://glitch.com">Glitch</a> with the
+          <a href="https://tokbox.com/developer/">Vonage Video API</a>.</small
         >
       </p>
     </footer>
+
     <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
     <script src="/client.js"></script>
   </body>

@@ -16,14 +16,14 @@ fetch(location.pathname, {
     const sessionId = res.sessionId;
     const token = res.token;
     const streamName = res.streamName;
-    initialiseSession(apiKey, sessionId, token, streamName);
+    initializeSession(apiKey, sessionId, token, streamName);
   })
   .catch(handleCallback);
 
 getChatHistory();
 registerListeners();
 
-function initialiseSession(apiKey, sessionId, token, streamName) {
+function initializeSession(apiKey, sessionId, token, streamName) {
   // Create a session object with the sessionId
   session = OT.initSession(apiKey, sessionId);
 
@@ -75,7 +75,7 @@ function initiateSessionListeners(session) {
 }
 
 function getChatHistory() {
-  fetch(`/message/${name}`)
+  fetch(`/messages/${name}`)
     .then(res => {
       return res.json();
     })
@@ -133,7 +133,6 @@ function messageListener() {
     "submit",
     event => {
       event.preventDefault();
-      console.log(session);
       session.signal(
         {
           type: "msg",
@@ -141,6 +140,7 @@ function messageListener() {
         },
         () => {
           saveMessage(msgTxt.value);
+          msgTxt.value = "";
         }
       );
     },

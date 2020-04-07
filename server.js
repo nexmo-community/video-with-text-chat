@@ -7,8 +7,11 @@ const PouchDB = require("pouchdb-node");
 const app = express();
 const OT = new OpenTok(process.env.API_KEY, process.env.API_SECRET);
 
-/* To replace with actual DB when things work properly */
-const chatDb = new PouchDB("chatDb");
+const sessionDb = new PouchDB("sessionDb");
+
+sessionDb.info().then(function(info) {
+  console.log(info);
+});
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -28,7 +31,7 @@ app.post("/session/:name", (request, response) => {
 
   isExistingSession.then(function(sessionExists) {
     if (sessionExists) {
-      chatDb
+      sessionDb
         .get(roomName)
         .then(function(sessionInfo) {
           generateToken(roomName, streamName, sessionInfo, response);
@@ -46,7 +49,7 @@ app.post("/session/:name", (request, response) => {
             sessionId: session.sessionId,
             messages: []
           };
-          chatDb.put(sessionInfo);
+          sessionDb.put(sessionInfo);
           generateToken(roomName, streamName, sessionInfo, response);
         }
       });
@@ -56,7 +59,8 @@ app.post("/session/:name", (request, response) => {
 
 app.get("/messages/:name", (request, response) => {
   const roomName = request.params.name;
-  chatDb
+  console.log(roomName);
+  sessionDb
     .get(roomName)
     .then(function(result) {
       response.status(200);
@@ -76,17 +80,16 @@ app.post("/message", (request, response) => {
     content: request.body.content,
     user: request.body.user
   };
-  chatDb
+  sessionDb
     .get(roomName)
     .then(function(result) {
       result.messages = [...result.messages, message];
-      return chatDb.put(result);
+      return sessionDb.put(result);
     })
     .then(function() {
-      return chatDb.get(roomName);
+      return sessionDb.get(roomName);
     })
     .then(function(result) {
-      console.log(result.messages);
       response.status(200);
       response.send({
         latestMessage: result.messages[result.messages.length - 1]
@@ -98,7 +101,7 @@ app.post("/message", (request, response) => {
 });
 
 function checkSession(roomName) {
-  return chatDb
+  return sessionDb
     .get(roomName)
     .then(function() {
       console.log("Room exists");
