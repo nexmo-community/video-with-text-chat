@@ -9,9 +9,7 @@ const OT = new OpenTok(process.env.API_KEY, process.env.API_SECRET);
 
 const sessionDb = new PouchDB("sessionDb");
 
-sessionDb.info().then(function(info) {
-  console.log(info);
-});
+sessionDb.info().then(info => console.log(info));
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -20,25 +18,36 @@ app.get("/", (request, response) => {
   response.sendFile(__dirname + "/views/landing.html");
 });
 
-app.get("/session/:name", (request, response) => {
+app.get("/session/:room", (request, response) => {
   response.sendFile(__dirname + "/views/index.html");
 });
 
-app.post("/session/:name", (request, response) => {
-  const roomName = request.params.name;
+app.get("/messages/:room", (request, response) => {
+  const roomName = request.params.room;
+  sessionDb
+    .get(roomName)
+    .then(result => {
+      response.status(200);
+      response.send({
+        messagesArray: result.messages
+      });
+    })
+    .catch(error => console.log(error));
+});
+
+app.post("/session/:room", (request, response) => {
+  const roomName = request.params.room;
   const streamName = request.body.username;
   const isExistingSession = checkSession(roomName);
 
-  isExistingSession.then(function(sessionExists) {
+  isExistingSession.then(sessionExists => {
     if (sessionExists) {
       sessionDb
         .get(roomName)
-        .then(function(sessionInfo) {
+        .then(sessionInfo => {
           generateToken(roomName, streamName, sessionInfo, response);
         })
-        .catch(function(error) {
-          return error;
-        });
+        .catch(error => error);
     } else {
       OT.createSession((error, session) => {
         if (error) {
@@ -57,24 +66,8 @@ app.post("/session/:name", (request, response) => {
   });
 });
 
-app.get("/messages/:name", (request, response) => {
-  const roomName = request.params.name;
-  console.log(roomName);
-  sessionDb
-    .get(roomName)
-    .then(function(result) {
-      response.status(200);
-      response.send({
-        messagesArray: result.messages
-      });
-    })
-    .catch(function(err) {
-      console.log(err);
-    });
-});
-
 app.post("/message", (request, response) => {
-  const roomName = request.body.roomname;
+  const roomName = request.body.roomName;
   const message = {
     timeStamp: request.body._id,
     content: request.body.content,
@@ -82,32 +75,30 @@ app.post("/message", (request, response) => {
   };
   sessionDb
     .get(roomName)
-    .then(function(result) {
+    .then(result => {
       result.messages = [...result.messages, message];
       return sessionDb.put(result);
     })
-    .then(function() {
+    .then(() => {
       return sessionDb.get(roomName);
     })
-    .then(function(result) {
+    .then(result => {
       response.status(200);
       response.send({
         latestMessage: result.messages[result.messages.length - 1]
       });
     })
-    .catch(function(err) {
-      console.log(err);
-    });
+    .catch(error => console.log(error));
 });
 
 function checkSession(roomName) {
   return sessionDb
     .get(roomName)
-    .then(function() {
-      console.log("Room exists");
+    .then(() => {
+      console.log(roomName + "exists");
       return Promise.resolve(true);
     })
-    .catch(function() {
+    .catch(() => {
       console.log("Room does not exist");
       return Promise.resolve(false);
     });

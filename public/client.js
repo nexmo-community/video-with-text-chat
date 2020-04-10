@@ -1,12 +1,12 @@
 let session;
 const url = new URL(window.location.href);
-const name = url.pathname.split("/")[2];
-const username = url.searchParams.get("username");
+const roomName = url.pathname.split("/")[2];
+const userName = url.searchParams.get("username");
 
 fetch(location.pathname, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ username: username })
+  body: JSON.stringify({ username: userName })
 })
   .then(res => {
     return res.json();
@@ -75,7 +75,7 @@ function initiateSessionListeners(session) {
 }
 
 function getChatHistory() {
-  fetch(`/messages/${name}`)
+  fetch(`/messages/${roomName}`)
     .then(res => {
       return res.json();
     })
@@ -98,8 +98,8 @@ function saveMessage(content) {
   const message = {
     _id: Date.now().toString(),
     content: content,
-    roomname: name,
-    user: username
+    roomName: roomName,
+    user: userName
   };
 
   fetch("/message", {
