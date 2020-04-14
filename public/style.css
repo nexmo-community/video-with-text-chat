@@ -40,7 +40,8 @@ button {
   margin: auto;
 }
 
-.registration input {
+.registration input[type="text"] {
+  display: block;
   margin-bottom: 1em;
 }
 
