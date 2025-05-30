@@ -9,7 +9,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "opentok": "^2.9.2",
-    "pouchdb-node": "^7.2.1"
+    "pouchdb-node": "^7.3.1"
   },
   "engines": {
     "node": "12.x"
